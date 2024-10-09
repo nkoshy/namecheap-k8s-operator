@@ -1,0 +1,41 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: nameacheapdnsrecords.namecheap.com
+spec:
+  group: namecheap.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                domain:
+                  type: string
+                  description: The domain name to manage
+                subdomain:
+                  type: string
+                  description: The subdomain to manage (use @ for root domain)
+                targetService:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the target Kubernetes service
+                    namespace:
+                      type: string
+                      description: The namespace of the target Kubernetes service
+                  required: ["name", "namespace"]
+              required: ["domain", "subdomain", "targetService"]
+  scope: Namespaced
+  names:
+    plural: nameacheapdnsrecords
+    singular: namecheapdnsrecord
+    kind: NamecheapDNSRecord
+    shortNames:
+    - ncdns

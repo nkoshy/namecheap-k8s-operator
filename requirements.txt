@@ -1,0 +1,3 @@
+kopf==1.35.6
+kubernetes==26.1.0
+PyNamecheap==0.0.3
